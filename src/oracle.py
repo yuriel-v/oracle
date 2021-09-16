@@ -238,4 +238,15 @@ def day_four():
 
     return challenge_check(request, day4=True, **params)
 
+
+@app.route('/bonus', methods=['GET'])
+def bonus_challenge():
+    params = {
+        'response': "So kid, you're in for some more, aren'tcha. Okay sure.",
+        'what': "There's a private key in your machine, namely the file '/etc/challenge/pk'. Copy it to your homedir and use it to SSH into oracle.yuriel.net as the user 'bonus', then run the 'challenge' program in the homedir.",
+    }
+
+    return jsonify(params)
+
+
 app.run('0.0.0.0')
