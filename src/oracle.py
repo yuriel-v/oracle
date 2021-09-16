@@ -108,7 +108,7 @@ def hidden_endpoint():
 def day_one():
     params = {
         'key': 'bang',
-        'answer': 27, # = 2 + 3 + 5 + 2 + 12
+        'answer': 24, # = 2 + 3 + 5 + 2 + 12
         'nextkey': 'structured',
         'next_endpoint': '/foundation',
         'fmt': "{'answer': 420} -> integer type answer!",
