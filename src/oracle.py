@@ -105,7 +105,7 @@ def challenge_check(req: Request, key, answer: Union[list, dict, str, int, float
                 "instructions": "Send the string in 'oraclekey' as the value of the 'Oracle-Key' header of a GET request to the endpoint specified."
             }
             return jsonify(res)
-            
+
 
 @app.route('/a774409a00c21de377cf8ed5c6a56b8547973042', methods=['GET'])
 def hidden_endpoint():
@@ -237,6 +237,75 @@ def day_four():
     }
 
     return challenge_check(request, day4=True, **params)
+
+
+@app.route('/enderpoint', methods=['GET', 'POST'])
+def day_five():
+    params = {
+        'key': 'flag',
+        'answer': [
+            "TV GL 42 polegadas LED; 1600.53; 20-05-2017",
+            "Computador GameMaster 3 Pro; 4200.98",
+            "Nantendo Switch Lite; 1550.0; 700.2",
+            "Mesa digitalizadora Wecan Bamboo; 800.25; 08-02-2020",
+            "Roteador NetFinder Gigabit; 300.78",
+            "Gamebox X 720; 2000.0; 800.32",
+            "Smartphone Alcateia Pixel 5; 520.8"
+        ],
+        'nextkey': "None needed! The header won't be checked in this endpoint.",
+        'next_endpoint': "Actually, submit your work to Yuriel. If the code looks ok enough, he'll give you the last endpoint.",
+        'fmt': 'Check task document.',
+        'instructions': "Finish the task for your answer. Once you have it, send your answer according to the 'fmt' key, on this same endpoint, on a POST method.",
+        'task': {
+            'last-one': "So! Your last task. Check the markdown document on the 'document' key for full instructions, including the expected format.",
+            'document': "https://github.com/yuriel-v/sei/blob/lrn_lbval/misc/tarefa-5.md",
+            'values': [
+                {
+                    "name": "TV GL 42 polegadas LED",
+                    "price": 1600.53,
+                    "manufactureDate": "20-05-2017"
+                },
+                {
+                    "name": "Computador GameMaster 3 Pro",
+                    "price": 4200.98
+                },
+                {
+                    "name": "Nantendo Switch Lite",
+                    "price": 1550.0,
+                    "customsFee": 700.20
+                },
+                {
+                    "name": "Mesa digitalizadora Wecan Bamboo",
+                    "price": 800.25,
+                    "manufactureDate": "08-02-2020"
+                },
+                {
+                    "name": "Roteador NetFinder Gigabit",
+                    "price": 300.78
+                },
+                {
+                    "name": "Gamebox X 720",
+                    "price": 2000.0,
+                    "customsFee": 800.32
+                },
+                {
+                    "name": "Smartphone Alcateia Pixel 5",
+                    "price": 520.8
+                }
+            ]
+        }
+    }
+
+    return challenge_check(request, **params)
+
+
+@app.route('/dev/null', methods=['GET'])
+def conclusion():
+    msg = {
+        "response": "Well done, you finished all your tasks and proven yourself. Be aware that most of the knowledge here will be used in the project, so don't forget what you learned here."
+    }
+
+    return jsonify(msg)
 
 
 @app.route('/bonus', methods=['GET'])
