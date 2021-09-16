@@ -173,4 +173,21 @@ def day_two():
     return challenge_check(request, day2=True, **params)
 
 
+@app.route('/conquer', methods=['GET', 'POST'])
+def day_three():
+    params = {
+        'key': 'divide',
+        'answer': '31035053229546199656252032972759319953190362094566672920420940313',
+        'nextkey': 'btc',
+        'next_endpoint': '/hashrate',
+        'fmt': "{'answer': '420'} -> string type answer, but the answer itself is a number!",
+        'instructions': "Finish the task for your answer. Once you have it, send your answer according to the 'fmt' key, on this same endpoint, on a POST method.",
+        'task': {
+            'what': "Write a program that reads a value N and sums the factorials of 1 to N. For instance, if N = 3, then the output will be fact(1) + fact(2) + fact(3).",
+            'value': "Result of N = 50."
+        }
+    }
+
+    return challenge_check(request, **params)
+
 app.run('0.0.0.0')
