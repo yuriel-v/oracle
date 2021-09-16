@@ -46,6 +46,7 @@ Bonus challenge:
   - Endpoint: /a774409a00c21de377cf8ed5c6a56b8547973042
     -> Hash of the string 'Flag'
 """
+from typing import Union
 import flask as fsk
 
 from flask import request, jsonify, Response, Request
@@ -54,7 +55,7 @@ app = fsk.Flask(__name__)
 app.config['DEBUG'] = True
 
 
-def challenge_check(req: Request, key, answer, nextkey, instructions, task, fmt, next_endpoint, day2=False):
+def challenge_check(req: Request, key, answer: Union[list, dict, str, int, float], nextkey, instructions, task, fmt, next_endpoint, day2=False, day4=False):
     """Challenge check template."""
     if req.headers.get('Oracle-Key') != key:
         return Response('{"response": "Wrong key, kiddo. Try again."}', 400)
@@ -85,6 +86,14 @@ def challenge_check(req: Request, key, answer, nextkey, instructions, task, fmt,
                 json_req = {'answer': {key: sorted(val) for key, val in json_req.get('answer').items()}}
                 answer = {key: sorted(val) for key, val in answer.items()}
 
+        if day4:
+            if json_req.get('answer') is None or not isinstance(json_req.get('answer'), list):
+                return Response('{"response": "Sorry kid, wrong format. Try again."}', 400)
+
+            else:
+                json_req = {'answer': list(sorted(json_req.get('answer')))}
+                answer.sort()
+
         if json_req.get('answer') is None or json_req.get('answer') != answer:
             return Response('{"response": "Sorry kid, wrong answer. Try again."}', 400)
 
@@ -97,7 +106,6 @@ def challenge_check(req: Request, key, answer, nextkey, instructions, task, fmt,
             }
             return jsonify(res)
             
-
 
 @app.route('/a774409a00c21de377cf8ed5c6a56b8547973042', methods=['GET'])
 def hidden_endpoint():
@@ -139,7 +147,6 @@ def day_one():
 
 @app.route('/foundation', methods=['GET', 'POST'])
 def day_two():
-    #return jsonify({"response": "Sit tight, this one's still being implemented."})
     params = {
         'key': 'structured',
         'answer': {
@@ -189,5 +196,46 @@ def day_three():
     }
 
     return challenge_check(request, **params)
+
+
+@app.route('/hashrate', methods=['GET', 'POST'])
+def day_four():
+    params = {
+        'key': 'btc',
+        'answer': [
+            '539fd50c348db44068a61b33d063e4193f6d434a',
+            '4b90e55ed5417b121606a2cd6382e00c6b47b276',
+            'e807c09e567aed5b036bb9d81033c33bb4c86d6f',
+            '2704b86d7d502a517e0358b041e3b0d0fc50aba6',
+            '9e43047a91479289035e596a625806877336bd7a',
+            '675be66fedccab59bb54e74617c2a5e64c57531a',
+            '47f8643b5292f1d9fd75021d2fd54fe079c8f06c',
+            '9bac0a9e1c76f549c99c678ce218fc8d3f94258b',
+            'c55f21bc531ef8ecc3c9ee189e2601ff5f2c62a1',
+            '53292576822145c9ed4b0207a043d4b95b1bff35'
+        ],
+        'nextkey': 'flag',
+        'next_endpoint': '/enderpoint',
+        'fmt': "{'answer': ['abchash1', 'defhash2', ...]} -> array of strings containing SHA-1 hashes",
+        'instructions': "Finish the task for your answer. Once you have it, send your answer according to the 'fmt' key, on this same endpoint, on a POST method.",
+        'task': {
+            'what': "Fill in the blanks with full lowercase words. Write a Python program that hashes each sentence using the SHA-1 algorithm, then send them as strings in an array, as per 'fmt' key. Order is irrelevant.",
+            'sentences': [
+                "Chamamos de _____ a descrição de uma entidade qualquer que desejamos representar no nosso programa.",  # classe
+                "Chamamos de _____ a instância concreta de um tipo definido.",  # objeto
+                "Uma classe _____ pode não ter todos os seus métodos implementados, cabendo às suas subclasses implementá-los.",  # abstrata
+                "Uma _____ não pode ter nenhum método implementado. Todos os métodos declarados devem ser implementados pelas suas subclasses.",  # interface
+                "A _____ estabelece uma relação 'é um'.",  # herança
+                "A _____ estabelece uma relação 'tem um'.",  # composição
+                "Chamamos de _____ quando temos uma variável do tipo de uma superclasse armazenando uma instância de uma de suas subclasses.",  # upcasting
+                "Chamamos de _____ quando tentamos atribuir um objeto do tipo de uma superclasse à uma variável do tipo de uma de suas subclasses. Problemático, as vezes.",  # downcasting
+                "Chamamos de _____ quando temos um mesmo método que se comporta de maneira diferente dependendo da classe de onde é chamado.",  # polimorfismo
+                "Uma _____ ocorre quando alguma parte do programa encontra um resultado inesperado, não tratado por nenhum outro fluxo."  # exceção
+            ],
+            'bonus': "If you're in for a bonus challenge, go to endpoint '/bonus'."
+        }
+    }
+
+    return challenge_check(request, day4=True, **params)
 
 app.run('0.0.0.0')
