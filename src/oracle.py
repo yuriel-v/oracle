@@ -22,7 +22,7 @@ Day two:
       "tuple": ["immutable", "comma-denoted"],
       "set": ["no-repetitions", "curly-braces"],
       "dict": ["key-value-pair", "no-order"]
-  }
+    }
   - Endpoint: /foundation
 
 Day three:
