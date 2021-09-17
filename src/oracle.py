@@ -27,24 +27,43 @@ Day two:
 
 Day three:
   - Key: divide
-  - Answer:
+  - Answer: '31035053229546199656252032972759319953190362094566672920420940313'
   - Endpoint: /conquer
 
 Day four:
   - Key: btc
-  - Answer:
+  - Answer: [
+        '539fd50c348db44068a61b33d063e4193f6d434a',
+        '4b90e55ed5417b121606a2cd6382e00c6b47b276',
+        'e807c09e567aed5b036bb9d81033c33bb4c86d6f',
+        '2704b86d7d502a517e0358b041e3b0d0fc50aba6',
+        '9e43047a91479289035e596a625806877336bd7a',
+        '675be66fedccab59bb54e74617c2a5e64c57531a',
+        '47f8643b5292f1d9fd75021d2fd54fe079c8f06c',
+        '9bac0a9e1c76f549c99c678ce218fc8d3f94258b',
+        'c55f21bc531ef8ecc3c9ee189e2601ff5f2c62a1',
+        '53292576822145c9ed4b0207a043d4b95b1bff35'
+    ]
   - Endpoint: /hashrate
 
 Day five:
   - Key: flag
-  - Answer:
+  - Answer: [
+        "TV GL 42 polegadas LED; 1600.53; 20-05-2017",
+        "Computador GameMaster 3 Pro; 4200.98",
+        "Nantendo Switch Lite; 1550.0; 700.2",
+        "Mesa digitalizadora Wecan Bamboo; 800.25; 08-02-2020",
+        "Roteador NetFinder Gigabit; 300.78",
+        "Gamebox X 720; 2000.0; 800.32",
+        "Smartphone Alcateia Pixel 5; 520.8"
+    ]
   - Endpoint: /enderpoint
 
 Bonus challenge:
   - Key: None needed, just reach the endpoint
   - Answer: Same as above
   - Endpoint: /a774409a00c21de377cf8ed5c6a56b8547973042
-    -> Hash of the string 'Flag'
+    -> SHA-1 hash of the string 'Flag'
 """
 from typing import Union
 import flask as fsk
